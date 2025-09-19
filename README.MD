@@ -37,4 +37,3 @@ Node.js installed (version 14+ recommended)
 
 MySQL server installed with a database created for the app
 
-Steps
