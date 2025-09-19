@@ -10,8 +10,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = mysql.createPool({
   host: 'localhost',
-  user: 'root',         // update as per your MySQL config
-  password: 'satyam125',         // update as per your MySQL config
+  user: 'root',         // update as per my MySQL config
+  password: 'satyam125',         // update as per my MySQL config
   database: 'invoice_demo'
 });
 
