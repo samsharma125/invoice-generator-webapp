@@ -1,163 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Invoice Generator</title>
   <style>
-    /* ===== Global Styles ===== */
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #f0f4ff, #dbeafe);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9f9f9;
       margin: 0;
-      padding: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+      padding: 20px;
     }
 
-    .container {
+    center {
       background: #fff;
       padding: 30px 40px;
-      border-radius: 16px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-      max-width: 700px;
-      width: 100%;
-      animation: fadeIn 0.6s ease-in-out;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: auto;
     }
 
     h2 {
-      text-align: center;
-      color: #1e3a8a;
-      font-size: 2rem;
+      color: #333;
       margin-bottom: 20px;
       font-weight: 700;
     }
 
-    /* ===== Form Styles ===== */
     form label {
       display: block;
-      margin-bottom: 14px;
-      font-weight: 500;
-      color: #374151;
+      margin-bottom: 12px;
+      font-weight: 600;
+      color: #555;
     }
 
     form input[type="text"],
     form input[type="number"],
     form select {
       width: 100%;
-      padding: 10px 14px;
-      margin-top: 6px;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 8px;
+      padding: 8px 12px;
+      margin-top: 5px;
+      border: 1.5px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
       font-size: 1rem;
-      transition: 0.3s;
-      background: #f9fafb;
+      transition: border-color 0.3s;
     }
 
-    form input:focus,
+    form input[type="text"]:focus,
+    form input[type="number"]:focus,
     form select:focus {
-      border-color: #2563eb;
-      background: #fff;
+      border-color: #2684ff;
       outline: none;
-      box-shadow: 0 0 6px rgba(37, 99, 235, 0.3);
+      box-shadow: 0 0 5px rgba(38, 132, 255, 0.4);
     }
 
     #taxFields {
       margin-bottom: 20px;
       padding: 15px;
-      border: 1px solid #3b82f6;
-      border-radius: 8px;
-      background: #eff6ff;
-      animation: slideDown 0.4s ease-in-out;
+      border: 1px solid #2684ff;
+      border-radius: 5px;
+      background: #f0f6ff;
     }
 
     h3 {
-      margin-top: 25px;
-      margin-bottom: 12px;
-      font-weight: 600;
-      color: #1e293b;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      font-weight: 700;
+      color: #333;
     }
 
-    /* ===== Product Rows ===== */
     .product-row {
       display: flex;
       gap: 10px;
       align-items: center;
       margin-bottom: 12px;
-      flex-wrap: wrap;
     }
 
-    .product-row input {
+    .product-row input[type="text"],
+    .product-row input[type="number"] {
       flex: 1;
     }
 
     .product-row button {
-      background: #ef4444;
+      background: #e74c3c;
       border: none;
-      padding: 8px 14px;
+      padding: 6px 12px;
       color: #fff;
       font-weight: 600;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .product-row button:hover {
+      background: #c0392b;
+    }
+
+    button[type="button"], button[type="submit"] {
+      background: #2684ff;
+      border: none;
+      color: white;
+      font-weight: 700;
+      padding: 10px 18px;
+      margin-top: 10px;
       border-radius: 6px;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
-    .product-row button:hover {
-      background: #dc2626;
-    }
-
-    /* ===== Buttons ===== */
-    button[type="button"], button[type="submit"] {
-      background: #2563eb;
-      border: none;
-      color: white;
-      font-weight: 600;
-      padding: 12px 20px;
-      margin-top: 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.3s ease;
-      display: inline-block;
-    }
-
     button[type="button"]:hover,
     button[type="submit"]:hover {
-      background: #1e40af;
-      transform: translateY(-2px);
+      background: #1862d1;
     }
 
     #message {
       margin-top: 20px;
       font-weight: 600;
       font-size: 1rem;
-      text-align: center;
     }
 
     .hidden {
       display: none;
     }
-
-    /* ===== Animations ===== */
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-
-    @keyframes slideDown {
-      from {opacity: 0; transform: translateY(-10px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Invoice Generator</h2>
+  <center>
+    <h2>INVOICE</h2>
     <form id="invoiceForm">
-      <label>Customer Name:
-        <input type="text" name="customerName" placeholder="Enter customer name" required />
-      </label>
+      <label>Customer Name: <input type="text" name="customerName" required /></label>
 
       <label>Invoice Type:
         <select name="invoiceType" id="invoiceType">
@@ -167,94 +137,105 @@
       </label>
 
       <div id="taxFields" class="hidden">
-        <label>Company Name: <input type="text" name="companyName" placeholder="Company Pvt Ltd" /></label>
-        <label>GST Number: <input type="text" name="gstNumber" placeholder="Enter GST Number" /></label>
+        <label>Company Name: <input type="text" name="companyName" /></label>
+        <label>GST Number: <input type="text" name="gstNumber" /></label>
       </div>
 
       <h3>Products</h3>
       <div id="products"></div>
-      <button type="button" onclick="addProductRow()">+ Add Product</button>
+      <button type="button" onclick="addProductRow()">Add Product</button>
 
-      <button type="submit">Generate Invoice</button>
+      <button type="submit">Submit</button>
     </form>
 
     <div id="message"></div>
-  </div>
 
-  <script>
-    function addProductRow() {
-      const container = document.getElementById('products');
-      const idx = container.children.length;
-      const row = document.createElement('div');
-      row.className = "product-row";
-      row.innerHTML = `
-        <input type="text" name="productName_${idx}" placeholder="Product Name" required />
-        <input type="number" name="quantity_${idx}" placeholder="Qty" min="1" required />
-        <input type="number" name="price_${idx}" placeholder="Price" min="0" step="0.01" required />
-        <button type="button" onclick="this.parentNode.remove()">Remove</button>
-      `;
-      container.appendChild(row);
-    }
+    <script>
+      console.log('Script loaded');
 
-    addProductRow();
+      function addProductRow() {
+        const container = document.getElementById('products');
+        const idx = container.children.length;
+        const row = document.createElement('div');
+        row.className = "product-row";
+        row.innerHTML = `
+          <input type="text" name="productName_${idx}" placeholder="Product Name" required />
+          <input type="number" name="quantity_${idx}" placeholder="Qty" min="1" required />
+          <input type="number" name="price_${idx}" placeholder="Price" min="0" step="0.01" required />
+          <button type="button" onclick="this.parentNode.remove()">Remove</button>
+        `;
+        container.appendChild(row);
+        console.log('Added product row', idx);
+      }
 
-    document.getElementById('invoiceType').addEventListener('change', function() {
-      document.getElementById('taxFields').classList.toggle('hidden', this.value !== 'tax');
-    });
+      addProductRow();
 
-    document.getElementById('invoiceForm').onsubmit = async function(e) {
-      e.preventDefault();
-      const form = e.target;
-      const data = {
-        customerName: form.customerName.value,
-        invoiceType: form.invoiceType.value,
-        companyName: form.companyName.value,
-        gstNumber: form.gstNumber.value,
-        products: []
+      document.getElementById('invoiceType').addEventListener('change', function() {
+        document.getElementById('taxFields').classList.toggle('hidden', this.value !== 'tax');
+      });
+
+      document.getElementById('invoiceForm').onsubmit = async function(e) {
+        e.preventDefault();
+        console.log('Submit triggered');
+
+        const form = e.target;
+        const data = {
+          customerName: form.customerName.value,
+          invoiceType: form.invoiceType.value,
+          companyName: form.companyName.value,
+          gstNumber: form.gstNumber.value,
+          products: []
+        };
+
+        const productsContainer = document.getElementById('products');
+        for (let i = 0; i < productsContainer.children.length; i++) {
+          const row = productsContainer.children[i];
+
+          const pnameInput = row.querySelector(`[name="productName_${i}"]`);
+          const qtyInput = row.querySelector(`[name="quantity_${i}"]`);
+          const priceInput = row.querySelector(`[name="price_${i}"]`);
+
+          if (!pnameInput.value.trim() || !qtyInput.value || !priceInput.value) {
+            document.getElementById('message').style.color = 'red';
+            document.getElementById('message').innerText = 'Please fill all product fields properly.';
+            return;
+          }
+
+          const pname = pnameInput.value.trim();
+          const qty = parseInt(qtyInput.value, 10);
+          const price = parseFloat(priceInput.value);
+
+          data.products.push({ name: pname, quantity: qty, price: price });
+        }
+
+        try {
+          const resp = await fetch('http://localhost:4000/api/create-invoice', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+
+          const res = await resp.json();
+          const messageEl = document.getElementById('message');
+
+          if (resp.ok) {
+            messageEl.style.color = "#28a745";
+            messageEl.innerText = res.message || 'Invoice created successfully!';
+            form.reset();
+            document.getElementById('taxFields').classList.add('hidden');
+            productsContainer.innerHTML = '';
+            addProductRow();
+          } else {
+            messageEl.style.color = "#e74c3c";
+            messageEl.innerText = res.error || 'Failed to create invoice.';
+          }
+        } catch (err) {
+          console.error('Submit error:', err);
+          document.getElementById('message').style.color = '#e74c3c';
+          document.getElementById('message').innerText = 'Network or server error. Please try again later.';
+        }
       };
-
-      const productsContainer = document.getElementById('products');
-      for (let i = 0; i < productsContainer.children.length; i++) {
-        const row = productsContainer.children[i];
-        const pname = row.querySelector(`[name="productName_${i}"]`).value.trim();
-        const qty = parseInt(row.querySelector(`[name="quantity_${i}"]`).value, 10);
-        const price = parseFloat(row.querySelector(`[name="price_${i}"]`).value);
-
-        if (!pname || !qty || !price) {
-          document.getElementById('message').style.color = 'red';
-          document.getElementById('message').innerText = 'Please fill all product fields properly.';
-          return;
-        }
-        data.products.push({ name: pname, quantity: qty, price: price });
-      }
-
-      try {
-        const resp = await fetch('http://localhost:4000/api/create-invoice', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-
-        const res = await resp.json();
-        const messageEl = document.getElementById('message');
-
-        if (resp.ok) {
-          messageEl.style.color = "#16a34a";
-          messageEl.innerText = res.message || 'Invoice created successfully!';
-          form.reset();
-          document.getElementById('taxFields').classList.add('hidden');
-          productsContainer.innerHTML = '';
-          addProductRow();
-        } else {
-          messageEl.style.color = "#dc2626";
-          messageEl.innerText = res.error || 'Failed to create invoice.';
-        }
-      } catch (err) {
-        console.error('Submit error:', err);
-        document.getElementById('message').style.color = '#dc2626';
-        document.getElementById('message').innerText = 'Network or server error. Please try again later.';
-      }
-    };
-  </script>
+    </script>
+  </center>
 </body>
 </html>
